@@ -1,41 +1,62 @@
 <?php 
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
-$param1 = $_GET['param1'];
-$param2 = $_GET['param2'];
-$param3 = $_GET['param3'];
-$method  = $_GET['method'];
+    $param1 = $_GET['param1'];
+    $param2 = $_GET['param2'];
+    $param3 = $_GET['param3'];
+    $type  = $_GET['type'];
+
+    if($type == 'base64'){
+
+        $response = array(
+            'param1' => $param1,
+            'param2' => $param2, 
+            'param3' => $param3
+        );
+
+        $queryString = http_build_query($response);
+        
+        $decodedParams = array();
+        parse_str($queryString, $decodedParams);
+
+        foreach ($decodedParams as $key => $value) {
+            $decodedParams[$key] = base64_decode($value);
+        }   
+
+        $decodedparam = $decodedParams['param1']; 
+        $decodedparam2 = $decodedParams['param2']; 
+        $decodedparam3 = $decodedParams['param3']; 
+
+        file_put_contents('response_base64.txt', $decodedparam . PHP_EOL . $decodedparam2 . PHP_EOL . $decodedparam3);
+
+    }else if($type == 'aes'){
+        
+        $key = file_get_contents('chave_aes.txt'); 
+        $vi = file_get_contents('vetor.txt');
+        
+        $response = array(
+            'param1' => $param1,
+            'param2' => $param2, 
+            'param3' => $param3
+        );
+
+        $queryString = http_build_query($response);
+        
+        $decodedParams = array();
+        parse_str($queryString, $decodedParams);
+
+        foreach($decodedParams as $key => $value) {
+            $decodedParams[$key] = openssl_decrypt($value, 'AES-128-CBC', $key, 0, $vi);
+        }
+
+        $decodedparam = $decodedParams['param1']; 
+        $decodedparam2 = $decodedParams['param2']; 
+        $decodedparam3 = $decodedParams['param3'];
+
+        file_put_contents('response_aes.txt', $decodedparam . PHP_EOL . $decodedparam2 . PHP_EOL . $decodedparam3);
 
 
-
-if($method == 'base64'){
-    
-}else if($method == 'aes'){
-
-}else{
-    echo 'method needs to be base64 or aes';
+    }else{
+        echo 'type needs to be base64 or aes';
+    }
 }
-
-
-
-$response = array(
-    'param1' => $param1,
-    'param2' => $param2, 
-    'param3' => $param3
-);
-
-// print_r($response);
-file_put_contents('response.txt', $response);
-
-
-$decodedParams = array();
-parse_str($query, $decodedParams);
-
-foreach($decodedParams as $key => $value) {
-    $decodedParams[$key] = openssl_decrypt($value, 'AES-128-CBC', $key, 0, $iv);
-}
-
-$param1 = $decodedParams['param1']; 
-$param2 = $decodedParams['param2']; 
-$param3 = $decodedParams['param3'];
-
-// file_put_contents('response_decriptograda.txt', $param1 . PHP_EOL . $param2 . PHP_EOL . $param3);

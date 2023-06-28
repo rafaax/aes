@@ -14,8 +14,9 @@ foreach($params as $key => $value) {
 print_r($params);
 $queryString = http_build_query($params);
 
-$url = 'http://192.168.0.38/estudos-rapha/criptografia/index.php?method=base64&' . $queryString;
+$url = 'http://192.168.0.38/estudos-rapha/criptografia/index.php?type=base64&' . $queryString;
+file_put_contents('BASE64.txt', $queryString);
 # http://192.168.0.38/estudos-rapha/criptografia/index.php?param1=RFdCREVqbUdH¶m2=Z0tuZFphU3hl¶m3=a1ptSHdTZkhr
 
-echo $url;
+header('Location:'. $url);
 
