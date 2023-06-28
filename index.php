@@ -1,4 +1,8 @@
 <?php 
+/*  linkedin: https://www.linkedin.com/in/raphael-meireles-0482b522a/
+    github: https://github.com/rafaax
+    :) 
+*/ 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') { // valida se a requisicao é get
 
     // recupera os parametros e atribui-os à variáveis
