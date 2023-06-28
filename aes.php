@@ -17,8 +17,12 @@ foreach ($params as $secret_key => $value) {
 
 
 $query = http_build_query($params);
-$url = 'http://192.168.0.38/estudos-rapha/criptografia_php/index.php?' . $query;
 
 
-$decodedParams = array();
-parse_str($query, $decodedParams);
+
+print_r($params);
+$url = 'http://192.168.0.38/estudos-rapha/criptografia/index.php?method=aes&' . $query;
+
+// header('Location:'.$url);
+
+

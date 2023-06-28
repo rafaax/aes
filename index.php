@@ -3,6 +3,18 @@
 $param1 = $_GET['param1'];
 $param2 = $_GET['param2'];
 $param3 = $_GET['param3'];
+$method  = $_GET['method'];
+
+
+
+if($method == 'base64'){
+    
+}else if($method == 'aes'){
+
+}else{
+    echo 'method needs to be base64 or aes';
+}
+
 
 
 $response = array(
@@ -26,4 +38,4 @@ $param1 = $decodedParams['param1'];
 $param2 = $decodedParams['param2']; 
 $param3 = $decodedParams['param3'];
 
-file_put_contents('response_decriptograda.txt', $param1 . PHP_EOL . $param2 . PHP_EOL . $param3);
+// file_put_contents('response_decriptograda.txt', $param1 . PHP_EOL . $param2 . PHP_EOL . $param3);
