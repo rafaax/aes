@@ -1,22 +1,23 @@
 <?php 
-
+// parametros para passar via get
 $params = array(
     'param1' => 'DWBDEjmGG', 
     'param2' => 'gKndZaSxe',
     'param3' => 'kZmHwSfHk'
 );
 
+// criptografa as variaveis que vao ser passadas via get
 foreach($params as $key => $value) {
     $params[$key] = base64_encode($value);
 }
 
+// print_r($params);
 
-print_r($params);
-$queryString = http_build_query($params);
+$query = http_build_query($params); # $querystring = param1=RFdCREVqbUdH&param2=Z0tuZFphU3hl&param3=a1ptSHdTZkhr
 
-$url = 'http://192.168.0.38/estudos-rapha/criptografia/index.php?type=base64&' . $queryString;
-file_put_contents('BASE64.txt', $queryString);
+$url = 'http://192.168.0.38/estudos-rapha/criptografia/index.php?type=base64&' . $query;
 # http://192.168.0.38/estudos-rapha/criptografia/index.php?param1=RFdCREVqbUdH¶m2=Z0tuZFphU3hl¶m3=a1ptSHdTZkhr
 
-header('Location:'. $url);
 
+// redireciona para o index passando os parametros
+header('Location:'. $url); 
